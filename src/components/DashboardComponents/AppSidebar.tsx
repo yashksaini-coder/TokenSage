@@ -10,12 +10,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { HomeIcon, SearchIcon, Coins, LogInIcon, LogOutIcon, Crown, Settings } from "lucide-react"
+import { HomeIcon, SearchIcon, Coins, LogInIcon, LogOutIcon, Crown, Settings, ChevronDown, SettingsIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { SignInButton, SignOutButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
-
+import { SignInButton, SignOutButton, UserButton, useUser } from "@clerk/nextjs";
+import * as React from "react";
+import {AgentsDropdown} from "@/components/DashboardComponents/Agentsmenu";
 const menuItems = [
   {
     label: "Home",
@@ -26,9 +27,13 @@ const menuItems = [
     label: "Explore",
     icon: <SearchIcon />,
     href: "/explore",
+  },
+  {
+    label: "Settings",
+    icon: <SettingsIcon />,
+    href: "/settings",
   }
-]
-
+];
 
 export function AppSidebar() {
   const path = usePathname();
@@ -62,7 +67,7 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
             {!isSignedIn ? (
-              <div className="flex flex-col gap-2 mx-4 mt-4">
+              <div className="flex flex-col gap-2 mx-4">
                 <SignInButton mode="modal">
                   <Button className="rounded-lg w-full bg-primary">
                     <LogInIcon className="mr-2" />
@@ -71,7 +76,7 @@ export function AppSidebar() {
                 </SignInButton>
               </div>
             ) : (
-              <div className="mx-4 mt-4">
+              <div className="mx-4">
                 <SignOutButton>
                   <Button className="rounded-lg w-full bg-primary">
                     <LogOutIcon className="mr-2" />
@@ -82,6 +87,12 @@ export function AppSidebar() {
             )}
           </SidebarContent>
         </SidebarGroup>
+
+        {/* Custom separator: short line, not touching the ends */}
+        <div className="flex justify-center my-4">
+          <div className="h-px bg-border" style={{ width: "85%" }} />
+        </div>
+        <AgentsDropdown />
       </SidebarContent>
       <SidebarFooter className="bg-accent">
         <div className="p-4 space-y-4">
@@ -93,19 +104,21 @@ export function AppSidebar() {
             <Crown className="w-4 h-4 mr-2" />
             <span>Upgrade Now</span>
           </Button>
-          <div className="pt-4 border-t border-border">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <UserButton />
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-foreground">Account</span>
-                  <span className="text-xs text-muted-foreground">Manage settings</span>
-                </div>
+          {/* Custom separator: short line, not touching the ends */}
+          <div className="flex justify-center my-4">
+            <div className="h-px bg-border" style={{ width: "85%" }} />
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <UserButton />
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-foreground">Account</span>
+                <span className="text-xs text-muted-foreground">Manage settings</span>
               </div>
-              <Button variant="ghost" size="icon">
-                <Settings className="w-4 h-4" />
-              </Button>
             </div>
+            <Button variant="ghost" size="icon">
+              <Settings className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </SidebarFooter>
