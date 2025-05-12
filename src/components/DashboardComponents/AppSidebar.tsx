@@ -95,9 +95,8 @@ export function AppSidebar() {
         <AgentsDropdown />
       </SidebarContent>
       <SidebarFooter className="bg-accent">
-        <div className="p-4 space-y-4">
-          <div className="space-y-2">
-            <h2 className="text-lg font-semibold text-foreground">Upgrade to Pro</h2>
+        <div className="p-4">
+          <div className="mb-4">
             <p className="text-sm text-muted-foreground">Unlock advanced features and analytics</p>
           </div>
           <Button variant="default" className="w-full rounded-lg">

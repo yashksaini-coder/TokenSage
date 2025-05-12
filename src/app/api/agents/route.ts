@@ -3,7 +3,14 @@ import axios from "axios";
 import { env } from "@/providers/env";
 
 export async function GET(request: NextRequest) {
-    const response = await axios.get(env.backendUrl + "/agents");
-    return NextResponse.json({ message: response.data });
+    try {
+        const response = await axios.get(env.backendUrl + "/v1/agents/list-agents");
+        return NextResponse.json({ message: response.data });
+    } catch (error) {
+        console.error('Error fetching agents:', error);
+        return NextResponse.json(
+            { error: 'Failed to fetch agents' },
+            { status: 500 }
+        );
+    }
 }
-
