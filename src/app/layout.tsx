@@ -4,6 +4,7 @@ import "./globals.css";
 import { AppSidebar } from "@/components/DashboardComponents/AppSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -15,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Web3 Perplexity",
+  title: "Token Sage",
   description:
-    "Driven by AI Agents, Web3 Perplexity explores the latest trends and insights in the Web3 space.",
+    "Driven by AI Agents, Token Sage explores the latest trends and insights in the Web3 space.",
 };
 
 export default function RootLayout({
@@ -30,19 +31,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="bg-primary/50 w-full" >
-            <SidebarTrigger />
-            {children}
-            </main>
-          </SidebarProvider>
+          <ClerkProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <main className="bg-foreground/10 w-full" >
+                <SidebarTrigger />
+                {children}
+              </main>
+            </SidebarProvider>
+          </ClerkProvider>
         </ThemeProvider>
       </body>
     </html>

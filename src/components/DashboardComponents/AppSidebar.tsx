@@ -42,7 +42,7 @@ export function AppSidebar() {
       <SidebarHeader className="bg-accent flex justify-center items-center" />
       <div className="bg-accent flex justify-center items-center">
         <Coins className="w-6 h-6 text-primary mx-2 rounded-full" />
-        <h1 className="text-xl font-bold">Web3 Perplexity</h1>
+        <h1 className="text-xl font-bold">Token Sage</h1>
       </div>
       <SidebarContent className="bg-accent">
         <SidebarGroup>
