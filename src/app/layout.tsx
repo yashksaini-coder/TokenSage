@@ -27,6 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+      <ClerkProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -38,7 +39,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ClerkProvider>
             <SidebarProvider>
               <AppSidebar />
               <main className="bg-foreground/10 w-full" >
@@ -46,9 +46,9 @@ export default function RootLayout({
                 {children}
               </main>
             </SidebarProvider>
-          </ClerkProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
