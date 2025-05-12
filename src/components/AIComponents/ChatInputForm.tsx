@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Atom, Cpu, Globe, Mic, Paperclip, SearchCheckIcon, AudioLines } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -23,10 +25,10 @@ export default function ChatInputForm() {
                 <div className="flex-1 w-full">
                     <Tabs defaultValue="Search" className="w-full">
                         <TabsContent value="Search">
-                            <input type="text" placeholder="Ask about Web3..." className="w-full text-white p-2 outline rounded-2xl" />
+                            <Textarea placeholder="Ask about Web3..." className="w-full text-white p-2 outline-none rounded-2xl resize-none min-h-14 focus-within:ring-0 focus-within:ring-offset-0 ring-0" />
                         </TabsContent>
                         <TabsContent value="Research">
-                            <input type="text" placeholder="Search for Coin..." className="w-full text-white p-2 w-full outline rounded-2xl" />
+                            <Textarea placeholder="Search for Coin..." className="text-white p-2 w-full outline-none rounded-2xl resize-none min-h-12 focus-within:ring-0 focus-within:ring-offset-0 ring-0" />
                         </TabsContent>
                         <TabsList className='bg-accent'>
                             <TabsTrigger value="Search" className='flex flex-row items-center gap-2'><SearchCheckIcon className='w-4 h-4' />Search</TabsTrigger>
@@ -50,7 +52,7 @@ export default function ChatInputForm() {
                                     </div>
                                 </DropdownMenuItem>
                             ))}
-                            </DropdownMenuContent>
+                        </DropdownMenuContent>
                     </DropdownMenu>
 
 

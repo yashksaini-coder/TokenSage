@@ -10,11 +10,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { HomeIcon, SearchIcon, Coins, LogInIcon, Crown, Settings } from "lucide-react"
+import { HomeIcon, SearchIcon, Coins, LogInIcon, LogOutIcon, Crown, Settings } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { SignUpButton, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 
 const menuItems = [
   {
@@ -26,17 +26,17 @@ const menuItems = [
     label: "Explore",
     icon: <SearchIcon />,
     href: "/explore",
-  },
-  {
-    label: "Sign In",
-    icon: <LogInIcon />,
-    href: "/sign-in",
-  },
+  }
 ]
 
 
 export function AppSidebar() {
   const path = usePathname();
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return null; // or a loading spinner
+  }
 
   return (
     <Sidebar className="bg-accent">
@@ -61,12 +61,25 @@ export function AppSidebar() {
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
-            <SignUpButton mode="modal">
-              <Button className="rounded-lg mx-4 mt-4 bg-primary">
-                <LogInIcon />
-                <span>Sign up</span>
-            </Button>
-            </SignUpButton>
+            {!isSignedIn ? (
+              <div className="flex flex-col gap-2 mx-4 mt-4">
+                <SignInButton mode="modal">
+                  <Button className="rounded-lg w-full bg-primary">
+                    <LogInIcon className="mr-2" />
+                    <span>Sign in</span>
+                  </Button>
+                </SignInButton>
+              </div>
+            ) : (
+              <div className="mx-4 mt-4">
+                <SignOutButton>
+                  <Button className="rounded-lg w-full bg-primary">
+                    <LogOutIcon className="mr-2" />
+                    <span>Sign out</span>
+                  </Button>
+                </SignOutButton>
+              </div>
+            )}
           </SidebarContent>
         </SidebarGroup>
       </SidebarContent>
