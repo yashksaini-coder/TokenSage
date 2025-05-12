@@ -10,10 +10,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { HomeIcon, SearchIcon, SettingsIcon, Coins, LogInIcon, TwitterIcon, GithubIcon } from "lucide-react"
+import { HomeIcon, SearchIcon, Coins, LogInIcon, Crown, Settings } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { SignUpButton, UserButton } from "@clerk/nextjs";
 
 const menuItems = [
   {
@@ -27,9 +28,9 @@ const menuItems = [
     href: "/explore",
   },
   {
-    label: "Settings",
-    icon: <SettingsIcon />,
-    href: "/settings",
+    label: "Sign In",
+    icon: <LogInIcon />,
+    href: "/sign-in",
   },
 ]
 
@@ -60,21 +61,39 @@ export function AppSidebar() {
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
-            <Button className="rounded-lg mx-4 mt-4 bg-primary">
-              <LogInIcon />
-              <span>Sign up</span>
+            <SignUpButton mode="modal">
+              <Button className="rounded-lg mx-4 mt-4 bg-primary">
+                <LogInIcon />
+                <span>Sign up</span>
             </Button>
+            </SignUpButton>
           </SidebarContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="bg-accent">
-        <div className="p-8">
-          <h2 className="text-gray-300">Try Pro</h2>
-          <p className="text-gray-300">Get access to all features</p>
-          <Button variant="outline" className="w-full rounded-lg px-4 mt-2 bg-primary text-gray-300">
-            <LogInIcon />
-            <span>Learn More</span>
+        <div className="p-4 space-y-4">
+          <div className="space-y-2">
+            <h2 className="text-lg font-semibold text-foreground">Upgrade to Pro</h2>
+            <p className="text-sm text-muted-foreground">Unlock advanced features and analytics</p>
+          </div>
+          <Button variant="default" className="w-full rounded-lg">
+            <Crown className="w-4 h-4 mr-2" />
+            <span>Upgrade Now</span>
           </Button>
+          <div className="pt-4 border-t border-border">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <UserButton />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-foreground">Account</span>
+                  <span className="text-xs text-muted-foreground">Manage settings</span>
+                </div>
+              </div>
+              <Button variant="ghost" size="icon">
+                <Settings className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
         </div>
       </SidebarFooter>
     </Sidebar>
