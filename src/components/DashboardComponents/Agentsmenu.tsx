@@ -8,12 +8,17 @@ import Image from 'next/image'
 const AGENT_ICON =
   "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f916.png" // 🤖 emoji as fallback
 
+interface Agent {
+  id: string;
+  name: string;
+}
+
 export function AgentsDropdown() {
-  const [agents, setAgents] = useState<any[]>([])
+  const [agents, setAgents] = useState<Agent[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState<any | null>(null)
+  const [selected, setSelected] = useState<Agent | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -28,9 +33,10 @@ export function AgentsDropdown() {
         setSelected(data.message?.[0] || null)
         setLoading(false)
         setError(null)
-      } catch (error) {
+      } catch (err) {
         setLoading(false)
         setError('Failed to load agents. Please try again later.')
+        console.log(err);
       }
     }
     fetchAgents()
@@ -89,7 +95,7 @@ export function AgentsDropdown() {
               <div className="px-4 py-3 text-red-500 text-sm">{error}</div>
             ) : (
               <ul className="max-h-72 overflow-y-auto divide-y divide-border">
-                {agents.map((agent: any) => (
+                {agents.map((agent: Agent) => (
                   <li key={agent.id}>
                     <button
                       className={`flex items-center w-full px-4 py-2 gap-3 text-left transition text-foreground font-mono font-semibold tracking-wide

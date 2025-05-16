@@ -3,14 +3,31 @@
 import React, { useEffect, useState } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
+interface Holding {
+  timestamp: string;
+  close: {
+    quote: number;
+  };
+}
+
+interface TokenData {
+  contract_ticker_symbol: string;
+  holdings: Holding[];
+}
+
+interface TransformedDataPoint {
+  timestamp: string;
+  [key: string]: string | number;
+}
+
 const colors = [
   "#F44336", "#673AB7", "#03A9F4", "#4CAF50", "#FFEB3B", "#FF5722", "#607D8B", "#E91E63",
   "#3F51B5", "#00BCD4", "#8BC34A", "#FFC107", "#795548", "#9C27B0", "#2196F3", "#009688"
 ];
 
-const transformForRecharts = (rawData: any[]) => {
-  const transformedData = rawData.reduce((acc, curr) => {
-    const singleTokenTimeSeries = curr.holdings.map((holdingsItem: any) => {
+const transformForRecharts = (rawData: TokenData[]): TransformedDataPoint[] => {
+  const transformedData = rawData.reduce((acc: TransformedDataPoint[], curr: TokenData) => {
+    const singleTokenTimeSeries = curr.holdings.map((holdingsItem: Holding) => {
       const dateStr = holdingsItem.timestamp.slice(0, 10);
       const date = new Date(dateStr);
       const options = { day: "numeric", month: "short" } as const;
@@ -20,14 +37,14 @@ const transformForRecharts = (rawData: any[]) => {
         [curr.contract_ticker_symbol]: holdingsItem.close.quote
       }
     });
-    const newArr = singleTokenTimeSeries.map((item: any, i: number) => Object.assign(item, acc[i]));
+    const newArr = singleTokenTimeSeries.map((item: TransformedDataPoint, i: number) => Object.assign(item, acc[i]));
     return newArr;
   }, []);
   return transformedData;
 };
 
 export default function Explore() {
-  const [data, setData] = useState<any[] | null>(null);
+  const [data, setData] = useState<TransformedDataPoint[] | null>(null);
   const [keys, setKeys] = useState<string[] | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -35,9 +52,9 @@ export default function Explore() {
     fetch('/api/portfolio')
       .then(res => res.json())
       .then(res => {
-        const rawData = res.data;
+        const rawData = res.data as TokenData[];
         const transformedData = transformForRecharts(rawData);
-        const dataKeys = rawData.map((item: any) => item.contract_ticker_symbol);
+        const dataKeys = rawData.map((item: TokenData) => item.contract_ticker_symbol);
         setKeys(dataKeys);
         setData(transformedData);
         setLoading(false);

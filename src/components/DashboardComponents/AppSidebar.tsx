@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { HomeIcon, SearchIcon, Coins, LogInIcon, LogOutIcon, Crown, Settings, ChevronDown, SettingsIcon } from "lucide-react"
+import { HomeIcon, SearchIcon, Coins, LogInIcon, LogOutIcon, Crown, Settings, SettingsIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";

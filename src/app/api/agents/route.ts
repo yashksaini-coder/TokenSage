@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import axios from "axios";
 import { env } from "@/providers/env";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const response = await axios.get(env.backendUrl + "/v1/agents/list-agents");
         return NextResponse.json({ message: response.data });

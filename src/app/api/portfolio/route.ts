@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { env } from "@/providers/env";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const endpoint = `https://api.covalenthq.com/v1/${env.chainName}/address/${env.walletAddress}/portfolio_v2/`;
     const res = await fetch(endpoint, {

@@ -1,8 +1,7 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react'
-import Image from 'next/image'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Atom, Cpu, Globe, Mic, Paperclip, SearchCheckIcon, AudioLines } from 'lucide-react'
+import { Cpu, Globe, Mic, Paperclip, SearchCheckIcon, AudioLines } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 
@@ -53,6 +52,7 @@ export default function ChatInputForm() {
             setMessages(prev => [...prev, assistantMessage]);
         } catch (err) {
             setMessages(prev => [...prev, { role: 'assistant', content: 'Error fetching response.' }]);
+            console.log(err);
         } finally {
             setLoading(false);
         }
