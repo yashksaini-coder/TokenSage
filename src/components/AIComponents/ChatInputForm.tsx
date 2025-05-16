@@ -101,20 +101,8 @@ export default function ChatInputForm() {
                                         disabled={loading}
                                     />
                                 </TabsContent>
-                                <TabsContent value="Research" className="w-full">
-                                    <Textarea
-                                        placeholder="Search for Coin..."
-                                        className="w-full h-12 text-white px-4 py-2 outline-none rounded-xl resize-none border-2 border-green-500 bg-transparent focus:ring-0 focus:ring-offset-0 ring-0 transition"
-                                        style={{ minHeight: 48, maxHeight: 120 }}
-                                        value={inputValue}
-                                        onChange={e => setInputValue(e.target.value)}
-                                        onKeyDown={handleKeyDown}
-                                        disabled={loading}
-                                    />
-                                </TabsContent>
                                 <TabsList className="mt-2 bg-accent w-fit rounded-lg px-1 py-0.5">
                                     <TabsTrigger value="Search" className="flex flex-row items-center gap-2 px-2 py-1 text-sm"><SearchCheckIcon className="w-4 h-4" />Search</TabsTrigger>
-                                    <TabsTrigger value="Research" className="flex flex-row items-center gap-2 px-2 py-1 text-sm"><Atom className="w-4 h-4" />Research</TabsTrigger>
                                 </TabsList>
                             </Tabs>
                         </div>
